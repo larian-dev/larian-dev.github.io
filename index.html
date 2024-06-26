@@ -37,99 +37,103 @@
          <button type="button" onclick="calculate()">Рассчитать</button>
       </form>
       <h2>Результаты</h2>
-      <div id="results">
-         <h3>Треугольник</h3>
-         <p>Объем угловой глазури: <span id="baseTrVolume"></span> мл</p>
-         <div id="tcont"></div>
-         <h3>Прямоугольник</h3>
-         <p>Объем угловой глазури: <span id="baseRecVolume"></span> мл</p>
-         <table id="rectangleTable"></table>
-      </div>
+      <div id="results">        
+        <table>
+          <tr>
+            <td>
+              <div id = "triangle">
+                <h3>Треугольник</h3>
+                <p>Объем угловой глазури: <span id="baseTrVolume"></span> мл</p>
+                <div id="tcont"></div>
+              </div>
+            </td>
+            <td>
+              <div id = "rectangle">          
+                <h3>Прямоугольник</h3>
+                <p>Объем угловой глазури: <span id="baseRecVolume"></span> мл</p>
+                <table id="rectangleTable"></table>
+              </div>
+            </td>
+          </tr>
+        </table>
+     </div>
       <script>
          function calculate() {
-             const triangleDimension = parseInt(document.getElementById('triangleDimension').value);
-             const rectangleDimensionW = parseInt(document.getElementById('rectangleDimensionW').value);          
-             const rectangleDimensionH = parseInt(document.getElementById('rectangleDimensionH').value);
-             const volume = parseInt(document.getElementById('volume').value);
-             const td = document.createElement('td');  
-             // Расчет для треугольника
+           const triangleDimension = parseInt(document.getElementById('triangleDimension').value);
+           const rectangleDimensionW = parseInt(document.getElementById('rectangleDimensionW').value);          
+           const rectangleDimensionH = parseInt(document.getElementById('rectangleDimensionH').value);
+           const volume = parseInt(document.getElementById('volume').value);
+           const td = document.createElement('td');  
+           // Расчет для треугольника
            const tcont = document.getElementById('tcont');
-           tcont.setAttribute("border", "2");
-           tcont.className = 'tcontainer';
-             const triangleTable = document.createElement('div');
+           const triangleTable = document.createElement('div');
            triangleTable.id = 'triangleTable';
            tcont.appendChild(triangleTable);
-             triangleTable.innerHTML = '';
-           
-             for (let i = 0; i < triangleDimension; i++) {
-                 const row = document.createElement('div');
-                 row.className = 'trrow';
-                 for (let j = 0; j <= i; j++) {
-                   const cell = document.createElement('div');
-                   cell.className = 'trcell';
-                   const c1 = (triangleDimension - i - 1) / (triangleDimension - 1);
-                   const c3 = j / (triangleDimension - 1);
-                   const c2 = 1 - c3 - c1;
-                   const r1 = document.createElement('span');
-                   const r2 = document.createElement('span');
-                   const r3 = document.createElement('span');                                  
-                   r1.innerHTML = `${Math.round(c1 * volume)}`;
-                   r1.style.display = 'table';
-                   r1.style.margin = '0 auto';
-                   r2.innerHTML = `${Math.round(c2 * volume)}`;
-                   r3.innerHTML = `${Math.round(c3 * volume)}`;
-                   cell.appendChild(r1);
-                   cell.appendChild(td);
-                   cell.appendChild(r2);
-                   cell.appendChild(document.createTextNode( '\u00A0\u00A0' ));
-                   cell.appendChild(r3);
-                   row.appendChild(cell);
-                 }
-                 triangleTable.appendChild(row);
+           triangleTable.innerHTML = '';           
+           for (let i = 0; i < triangleDimension; i++) {
+             const row = document.createElement('div');
+             row.className = 'trrow';
+             for (let j = 0; j <= i; j++) {
+               const cell = document.createElement('div');
+               cell.className = 'trcell';
+               const c1 = (triangleDimension - i - 1) / (triangleDimension - 1);
+               const c3 = j / (triangleDimension - 1);
+               const c2 = 1 - c3 - c1;
+               const r1 = document.createElement('span');
+               const r2 = document.createElement('span');
+               const r3 = document.createElement('span');                                  
+               r1.innerHTML = `${Math.round(c1 * volume)}`;
+               r1.style.display = 'table';
+               r1.style.margin = '0 auto';
+               r2.innerHTML = `${Math.round(c2 * volume)}`;
+               r3.innerHTML = `${Math.round(c3 * volume)}`;
+               cell.appendChild(r1);
+               cell.appendChild(td);
+               cell.appendChild(r2);
+               cell.appendChild(document.createTextNode( '\u00A0\u00A0' ));
+               cell.appendChild(r3);
+               row.appendChild(cell);
              }
+             triangleTable.appendChild(row);
+           }
            const baseTrVolume = document.getElementById('baseTrVolume');
            baseTrVolume.innerText = volume*(triangleDimension);
-         
-             // Расчет для прямоугольника
-             const rectangleTable = document.getElementById('rectangleTable');
-             rectangleTable.innerHTML = '';
+           // Расчет для прямоугольника
+           const rectangleTable = document.getElementById('rectangleTable');
+           rectangleTable.innerHTML = '';
            rectangleTable.setAttribute("border", "2");
              for (let i = 0; i < rectangleDimensionH; i++) {
-                 const row = document.createElement('tr');
-                 const lp = i/(rectangleDimensionH-1);
-                 for (let j = 0; j < rectangleDimensionW; j++) {
-                   const tp = j/(rectangleDimensionW-1);
-                   const cell = document.createElement('td');
-                   cell.className = 'trcell';
-                   //cell.style.display =  'table-cell';
-                   //cell.style.vertical-align: middle
-                   const c1 = lp*tp;
-                   const c2 = (1-lp)*tp
-                   const c3 = lp*(1-tp);
-                   const c4 = (1-tp)*(1-lp);
-                   const r1 = document.createElement('span');
-                   const r2 = document.createElement('span');
-                   const r3 = document.createElement('span');                  
-                   const r4 = document.createElement('span');
-                   r4.innerHTML = `${Math.round(c1 * volume)}`;
-                   r2.innerHTML = `${Math.round(c2 * volume)}`;
-                   r3.innerHTML = `${Math.round(c3 * volume)}`;
-                   r1.innerHTML = `${Math.round(c4 * volume)}`;
-                   cell.appendChild(r1);                  
-                   cell.appendChild(document.createTextNode( '\u00A0\u00A0' ));
-                   cell.appendChild(r2);                  
-                   cell.appendChild(document.createElement('br'));
-                   cell.appendChild(r3);                  
-                   cell.appendChild(document.createTextNode( '\u00A0\u00A0' ));
-                   cell.appendChild(r4);
-                   row.appendChild(cell);
-                 }
-                 rectangleTable.appendChild(row);
-             }
-           
+               const row = document.createElement('tr');
+               const lp = i/(rectangleDimensionH-1);
+               for (let j = 0; j < rectangleDimensionW; j++) {
+                 const tp = j/(rectangleDimensionW-1);
+                 const cell = document.createElement('td');
+                 cell.className = 'trcell';
+                 const c1 = lp*tp;
+                 const c2 = (1-lp)*tp
+                 const c3 = lp*(1-tp);
+                 const c4 = (1-tp)*(1-lp);
+                 const r1 = document.createElement('span');
+                 const r2 = document.createElement('span');
+                 const r3 = document.createElement('span');                  
+                 const r4 = document.createElement('span');
+                 r4.innerHTML = `${Math.round(c1 * volume)}`;
+                 r2.innerHTML = `${Math.round(c2 * volume)}`;
+                 r3.innerHTML = `${Math.round(c3 * volume)}`;
+                 r1.innerHTML = `${Math.round(c4 * volume)}`;
+                 cell.appendChild(r1);                  
+                 cell.appendChild(document.createTextNode( '\u00A0\u00A0' ));
+                 cell.appendChild(r2);                  
+                 cell.appendChild(document.createElement('br'));
+                 cell.appendChild(r3);                  
+                 cell.appendChild(document.createTextNode( '\u00A0\u00A0' ));
+                 cell.appendChild(r4);
+                 row.appendChild(cell);
+               }
+               rectangleTable.appendChild(row);
+             }           
            const baseRecVolume = document.getElementById('baseRecVolume');
-           baseRecVolume.innerText = volume*(rectangleDimensionW+rectangleDimensionH);
-         
+           baseRecVolume.innerText = volume*(rectangleDimensionW+rectangleDimensionH);         
          }
       </script>
    </body>
