@@ -14,7 +14,10 @@
          margin: 5px;
          padding: 5px;
          }
-         
+         .tcontainer {
+         display: flex;
+         justify-content: left;
+         }
       </style>
    </head>
    <body>
@@ -37,7 +40,7 @@
       <div id="results">
          <h3>Треугольник</h3>
          <p>Объем угловой глазури: <span id="baseTrVolume"></span> мл</p>
-         <div id="triangleTable"></div>
+         <div id="tcont"></div>
          <h3>Прямоугольник</h3>
          <p>Объем угловой глазури: <span id="baseRecVolume"></span> мл</p>
          <table id="rectangleTable"></table>
@@ -50,8 +53,14 @@
              const volume = parseInt(document.getElementById('volume').value);
              const td = document.createElement('td');  
              // Расчет для треугольника
-             const triangleTable = document.getElementById('triangleTable');
+           const tcont = document.getElementById('tcont');
+           tcont.setAttribute("border", "2");
+           tcont.className = 'tcontainer';
+             const triangleTable = document.createElement('div');
+           triangleTable.id = 'triangleTable';
+           tcont.appendChild(triangleTable);
              triangleTable.innerHTML = '';
+           
              for (let i = 0; i < triangleDimension; i++) {
                  const row = document.createElement('div');
                  row.className = 'trrow';
