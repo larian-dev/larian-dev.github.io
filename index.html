@@ -111,13 +111,13 @@
            const baseTrVolume = document.getElementById('baseTrVolume');
            const baseTrDry = document.getElementById('baseTrDry');
            const baseTrWet = document.getElementById('baseTrWet');
-           const trVolume = volume*(triangleDimension);
+           const trVolume = (volume*(triangleDimension)*1.1).toFixed(2);
            baseTrVolume.innerText = trVolume;
            const trWet = trVolume*((ro-dryRo)/(1-dryRo));
            const trDry = trVolume*((ro-1)/(dryRo-1))*dryRo;
            
-           baseTrDry.innerText = trDry;
-           baseTrWet.innerText = trWet;
+           baseTrDry.innerText = trDry.toFixed(2);
+           baseTrWet.innerText = trWet.toFixed(2);
            // Расчет для прямоугольника
            const rectangleTable = document.getElementById('rectangleTable');
            rectangleTable.innerHTML = '';
@@ -155,12 +155,12 @@
            const baseRecVolume = document.getElementById('baseRecVolume');            
            const baseRcDry = document.getElementById('baseRcDry');
            const baseRcWet = document.getElementById('baseRcWet');
-           const rcVolume = volume*(rectangleDimensionW+rectangleDimensionH);
+           const rcVolume = (volume*(rectangleDimensionW+rectangleDimensionH)*1.1).toFixed(2);
            baseRecVolume.innerText = rcVolume;
            const rcWet = rcVolume*((ro-dryRo)/(1-dryRo));
            const rcDry = rcVolume*((ro-1)/(dryRo-1))*dryRo;
-           baseRcDry.innerText = rcDry;
-           baseRcWet.innerText = rcWet;
+           baseRcDry.innerText = rcDry.toFixed(2);
+           baseRcWet.innerText = rcWet.toFixed(2);
          }
       </script>
    </body>
