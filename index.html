@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ru">
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Калькулятор растяжки глазурей</title>
+      <title id="titleNameLocalized">Калькулятор растяжки глазурей</title> 
       <style>
          .trrow {
          display: flex;
@@ -21,45 +22,46 @@
       </style>
    </head>
    <body>
-      <h1>Калькулятор растяжки глазурей</h1>
+      <button type="button" onclick="switchLanguage()"><label id="languageButtonLabel">En</label></label></button>
+      <h1 id="h1localizedStr">Калькулятор объема для растяжек глазурей</h1>
       <form id="calculatorForm">
-        <label for="triangleDimension">Размерность треугольника:</label>
+        <label for="triangleDimension" id="labelTrDimLocalized">Размерность треугольника:</label>
         <input type="number" id="triangleDimension" value="5" required>
         <br>
-        <label for="rectangleDimensionW">Ширина прямоугольника:</label>
-        <input type="number" id="rectangleDimensionW" value="5" required>
-        <br><label for="rectangleDimensionH">Высота прямоугольника:</label>
+        <label for="rectangleDimensionW" id="labelRecWLocalized">Ширина прямоугольника:</label>
+        <input type="number" id="rectangleDimensionW" value="5" width="50px" required>
+        <br><label for="rectangleDimensionH" id="labelRecHLocalized">Высота прямоугольника:</label>
         <input type="number" id="rectangleDimensionH" value="7" required>
         <br>
-        <label for="volume">Объем одного пробника:</label>
-        <input type="number" id="volume" value="20" required> мл
+        <label for="volume" id="labelSingleVolLocalized">Объем одного пробника:</label>
+        <input type="number" id="volume" value="20" required> ml
         <br>
-        <label for="ro">Плотность глазури:</label>
+        <label for="ro" id="labelRoGlazeLocalized">Плотность глазури:</label>
         <input type="number" id="ro" value="1.5">
-        <label for="ro">Плотность порошка:</label>
-        <input type="number" id="dryRo" value="2.6">(усредненное значение 2.6)
+        <label for="dryRo" id="labelRoDryLocalized">Плотность порошка:</label>
+        <input type="number" id="dryRo" value="2.6" id="labelRoDryAvgLocalized"><label for="dryRo" id="labelRoDry2Localized">(усредненное значение 2.6)</label>
         <br>
-        <button type="button" onclick="calculate()">Рассчитать</button>
+        <button type="button" onclick="calculate()">Go!</button>
       </form>
-      <h2>Результаты</h2>
+      <h2 id="h2Localized">Результаты</h2>
       <div id="results">        
         <table>
           <tr>
             <td>
               <div id = "triangle">
-                <h3>Треугольник</h3>
-                <p>Объем угловой глазури: <span id="baseTrVolume"></span> мл</p>
-                <p>Вес порошка: <span id="baseTrDry"></span> гр</p>
-                <p>Вес жидкости: <span id="baseTrWet"></span> гр</p>
+                <h3 id="h3trLocalized">Треугольник</h3>
+                <label id="glazeVolumeLocalized">Объем угловой глазури: </label><span id="baseTrVolume"></span> ml</br>
+                <label id="dryWLocalized">Вес порошка: </label><span id="baseTrDry"></span> gr</br>
+                <label id="waterLocalized">Вес жидкости: </label><span id="baseTrWet"></span> gr</br>
                 <div id="tcont"></div>
               </div>
             </td>
             <td>
               <div id = "rectangle">          
-                <h3>Прямоугольник</h3>
-                <p>Объем угловой глазури: <span id="baseRecVolume"></span> мл</p>
-                <p>Вес порошка: <span id="baseRcDry"></span> гр</p>
-                <p>Вес жидкости: <span id="baseRcWet"></span> гр</p>
+                <h3 id="h3recLocalized">Прямоугольник</h3>
+                <label id="glazeVolumeLocalized2">Объем угловой глазури: </label><span id="baseRecVolume"></span> ml</br>
+                <label id="dryWLocalized2">Вес порошка: </label><span id="baseRcDry"></span> gr</br>
+                <label id="waterLocalized2">Вес жидкости: </label><span id="baseRcWet"></span> gr</br>
                 <table id="rectangleTable"></table>
               </div>
             </td>
@@ -67,6 +69,56 @@
         </table>
      </div>
       <script>
+      	 function switchLanguage() {
+         	if (document.getElementById('languageButtonLabel').innerHTML==="En"){
+              document.getElementById('languageButtonLabel').innerHTML="Ru";
+              document.getElementById('h1localizedStr').innerHTML = "Glaze blend volume calculator";
+              document.getElementById('titleNameLocalized').innerHTML = "Glaze blend volume calculator";
+              document.getElementById('labelTrDimLocalized').innerHTML = "Triangle size:";
+              document.getElementById('labelRecWLocalized').innerHTML = "Rectangle width:";
+              document.getElementById('labelRecHLocalized').innerHTML = "Rectangle height:";
+              document.getElementById('labelSingleVolLocalized').innerHTML = "Test tile volume:";
+              document.getElementById('labelRoGlazeLocalized').innerHTML = "Glaze Specific gravity:";
+              document.getElementById('labelRoDry2Localized').innerHTML = "Average dry powder density is 2.6";
+              document.getElementById('labelRoDryLocalized').innerHTML = "Dry powder density";
+              
+              document.getElementById('h2Localized').innerHTML = "Results:";
+              document.getElementById('h3trLocalized').innerHTML = "Triangle blend:";
+              document.getElementById('h3recLocalized').innerHTML = "Rectangle blend:";
+              
+              document.getElementById('glazeVolumeLocalized').innerHTML = "Corner glaze volume: ";
+              document.getElementById('waterLocalized').innerHTML = "Water weight: ";
+              document.getElementById('dryWLocalized').innerHTML = "Powder weight: ";
+              
+              document.getElementById('glazeVolumeLocalized2').innerHTML = "Corner glaze volume: ";
+              document.getElementById('waterLocalized2').innerHTML = "Water weight: ";
+              document.getElementById('dryWLocalized2').innerHTML = "Powder weight: ";
+              }
+          else if (document.getElementById('languageButtonLabel').innerHTML==="Ru"){
+              document.getElementById('languageButtonLabel').innerHTML="En";
+              document.getElementById('h1localizedStr').innerHTML = "Калькулятор объема для растяжек глазурей";
+              document.getElementById('titleNameLocalized').innerHTML = "Калькулятор объема для растяжек глазурей";
+              document.getElementById('labelTrDimLocalized').innerHTML = "Размерность треугольника:";
+              document.getElementById('labelRecWLocalized').innerHTML = "Ширина прямоугольника:";
+              document.getElementById('labelRecHLocalized').innerHTML = "Высота прямоугольника:";
+              document.getElementById('labelSingleVolLocalized').innerHTML = "Объем одного пробника:";
+              document.getElementById('labelRoGlazeLocalized').innerHTML = "Плотность глазури:";
+              document.getElementById('labelRoDry2Localized').innerHTML = "Средняя плотность сухого порошка 2.6";
+              document.getElementById('labelRoDryLocalized').innerHTML = "Плотность порошка глазури";
+              
+              document.getElementById('h2Localized').innerHTML = "Результаты:";
+              document.getElementById('h3trLocalized').innerHTML = "Треугольник:";
+              document.getElementById('h3recLocalized').innerHTML = "Прямоугольник:";
+              
+              document.getElementById('glazeVolumeLocalized').innerHTML = "Объем угловой глазури: ";
+              document.getElementById('waterLocalized').innerHTML = "Вес жидкости: ";
+              document.getElementById('dryWLocalized').innerHTML = "Вес порошка: ";
+              
+              document.getElementById('glazeVolumeLocalized2').innerHTML = "Объем угловой глазури: ";
+              document.getElementById('waterLocalized2').innerHTML = "Вес жидкости: ";
+              document.getElementById('dryWLocalized2').innerHTML = "Вес порошка: ";
+              }
+         }
          function calculate() {
            const dryRo = parseFloat(document.getElementById('dryRo').value);
            const triangleDimension = parseInt(document.getElementById('triangleDimension').value);
