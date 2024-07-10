@@ -6,6 +6,7 @@ function calculate() {
             const triangleDimension = parseInt(document.getElementById('triangleDimension').value);
             const rectangleDimensionW = parseInt(document.getElementById('rectangleDimensionW').value);
             const rectangleDimensionH = parseInt(document.getElementById('rectangleDimensionH').value);
+            const extraVolume = (100+parseInt(document.getElementById('extraVolume').value))/100;
             const ro = parseFloat(document.getElementById('ro').value);
             const volume = parseInt(document.getElementById('volume').value);
             const td = document.createElement('td');
@@ -45,7 +46,7 @@ function calculate() {
             const baseTrVolume = document.getElementById('baseTrVolume');
             const baseTrDry = document.getElementById('baseTrDry');
             const baseTrWet = document.getElementById('baseTrWet');
-            const trVolume = (volume * (triangleDimension) * 1.1).toFixed(2);
+            const trVolume = (volume * (triangleDimension) * extraVolume).toFixed(2);
             baseTrVolume.innerText = trVolume;
             const trWet = trVolume * ((ro - dryRo) / (1 - dryRo));
             const trDry = trVolume * ((ro - 1) / (dryRo - 1)) * dryRo;
@@ -89,7 +90,7 @@ function calculate() {
             const baseRecVolume = document.getElementById('baseRecVolume');
             const baseRcDry = document.getElementById('baseRcDry');
             const baseRcWet = document.getElementById('baseRcWet');
-            const rcVolume = (volume * (rectangleDimensionW + rectangleDimensionH) * 1.1).toFixed(2);
+            const rcVolume = (volume * (rectangleDimensionW + rectangleDimensionH) * extraVolume).toFixed(2);
             baseRecVolume.innerText = rcVolume;
             const rcWet = rcVolume * ((ro - dryRo) / (1 - dryRo));
             const rcDry = rcVolume * ((ro - 1) / (dryRo - 1)) * dryRo;
@@ -121,6 +122,7 @@ function calculate() {
                 document.getElementById('glazeVolumeLocalized2').innerHTML = "Corner glaze volume: ";
                 document.getElementById('waterLocalized2').innerHTML = "Water weight: ";
                 document.getElementById('dryWLocalized2').innerHTML = "Powder weight: ";
+                document.getElementById('extraVolumeLocalized').innerHTML = "Extra corner volume: ";
             } else if (document.getElementById('languageButtonLabel').innerHTML === "Ru") {
                 document.getElementById('languageButtonLabel').innerHTML = "En";
                 document.getElementById('h1localizedStr').innerHTML = "Калькулятор объема для растяжек глазурей";
@@ -131,7 +133,7 @@ function calculate() {
                 document.getElementById('labelSingleVolLocalized').innerHTML = "Объем одного пробника:";
                 document.getElementById('labelRoGlazeLocalized').innerHTML = "Плотность глазури:";
                 document.getElementById('labelRoDry2Localized').innerHTML = "Средняя плотность сухого порошка 2.6";
-                document.getElementById('labelRoDryLocalized').innerHTML = "Плотность порошка глазури";
+                document.getElementById('labelRoDryLocalized').innerHTML = "Плотность порошка:";
 
                 document.getElementById('h2Localized').innerHTML = "Результаты:";
                 document.getElementById('h3trLocalized').innerHTML = "Треугольник:";
@@ -144,5 +146,6 @@ function calculate() {
                 document.getElementById('glazeVolumeLocalized2').innerHTML = "Объем угловой глазури: ";
                 document.getElementById('waterLocalized2').innerHTML = "Вес жидкости: ";
                 document.getElementById('dryWLocalized2').innerHTML = "Вес порошка: ";
+                document.getElementById('extraVolumeLocalized').innerHTML = "Дополнительный объем по углам: ";
             }
         }
