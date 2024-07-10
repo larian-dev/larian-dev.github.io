@@ -43,10 +43,10 @@
         <input type="number" id="rectangleDimensionH" value="5"  min="2" max="15" onchange="calculate()" required>
         <br>
         <label for="volume" id="labelSingleVolLocalized">Объем одного пробника:</label>
-        <input type="number" id="volume" value="20"  min="1" onchange="calculate()" step="0.1" required> ml
+        <input type="number" id="volume" value="20"  min="1" onchange="calculate()" step="1" required> ml
         <br>
         <label for="ro" id="labelRoGlazeLocalized">Плотность глазури:</label>
-        <input type="number" id="ro" value="1.5" onchange="calculate()">
+        <input type="number" id="ro" value="1.5" onchange="calculate() step="0.1" required">
         <label for="dryRo" id="labelRoDryLocalized">Плотность порошка:</label>
         <input type="number" id="dryRo" value="2.6" onchange="calculate()" step="0.1" required><label for="dryRo" id="labelRoDry2Localized">(усредненное значение 2.6)</label>
         <br>
