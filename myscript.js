@@ -123,6 +123,8 @@ function calculate() {
                 document.getElementById('waterLocalized2').innerHTML = "Water weight: ";
                 document.getElementById('dryWLocalized2').innerHTML = "Powder weight: ";
                 document.getElementById('extraVolumeLocalized').innerHTML = "Extra corner volume: ";
+                document.getElementById('warningLocalized').innerHTML = "Please note that _your_ glaze may need a different amount of water";
+                document.getElementById('refLocalized').innerHTML = "References: ";
             } else if (document.getElementById('languageButtonLabel').innerHTML === "Ru") {
                 document.getElementById('languageButtonLabel').innerHTML = "En";
                 document.getElementById('h1localizedStr').innerHTML = "Калькулятор объема для растяжек глазурей";
@@ -147,5 +149,7 @@ function calculate() {
                 document.getElementById('waterLocalized2').innerHTML = "Вес жидкости: ";
                 document.getElementById('dryWLocalized2').innerHTML = "Вес порошка: ";
                 document.getElementById('extraVolumeLocalized').innerHTML = "Дополнительный объем по углам: ";
+                document.getElementById('warningLocalized').innerHTML = "Учтите что _вашей_ глазури может потребоваться другое количество воды";
+                document.getElementById('refLocalized').innerHTML = "Ссылки: ";
             }
         }
