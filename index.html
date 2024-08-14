@@ -23,52 +23,22 @@
       }
     </style>
   </head>
-
   <body>
     <button type="button" onclick="switchLanguage()">
       <label id="languageButtonLabel">En</label>
     </button>
     <h1 id="h1localizedStr">Калькулятор объема для растяжек глазурей</h1>
     <form id="calculatorForm">
-      <label for="triangleDimension" id="labelTrDimLocalized"
-        >Размерность треугольника:</label
-      >
-      <input
-        type="number"
-        id="triangleDimension"
-        value="5"
-        min="3"
-        max="15"
-        required
-      />
+      <label for="triangleDimension" id="labelTrDimLocalized">Размерность треугольника:</label>
+      <input type="number" id="triangleDimension" value="5" min="3" max="15" required />
       <br />
-      <label for="rectangleDimensionW" id="labelRecWLocalized"
-        >Ширина прямоугольника:</label
-      >
-      <input
-        type="number"
-        id="rectangleDimensionW"
-        value="5"
-        min="2"
-        max="15"
-        required
-      />
+      <label for="rectangleDimensionW" id="labelRecWLocalized">Ширина прямоугольника:</label>
+      <input type="number" id="rectangleDimensionW" value="5" min="2" max="15" required />
       <br />
-      <label for="rectangleDimensionH" id="labelRecHLocalized"
-        >Высота прямоугольника:</label
-      >
-      <input
-        type="number"
-        id="rectangleDimensionH"
-        value="5"
-        min="2"
-        max="15"
-        required
-      />
+      <label for="rectangleDimensionH" id="labelRecHLocalized">Высота прямоугольника:</label>
+      <input type="number" id="rectangleDimensionH" value="5" min="2" max="15" required />
       <br />
-      <label for="volume" id="labelSingleVolLocalized"
-        >Объем одного пробника:</label
-      >
+      <label for="volume" id="labelSingleVolLocalized">Объем одного пробника:</label>
       <input type="number" id="volume" value="20" min="1" step="1" required />
       ml
       <br />
@@ -77,9 +47,7 @@
       <br />
       <label for="dryRo" id="labelRoDryLocalized">Плотность порошка:</label>
       <input type="number" id="dryRo" value="2.6" step="0.1" required />
-      <label for="dryRo" id="labelRoDry2Localized"
-        >(усредненное значение 2.6)</label
-      >
+      <label for="dryRo" id="labelRoDry2Localized">(усредненное значение 2.6)</label>
       <br />
       <button type="button" onclick="calculate()">Go!</button>
     </form>
@@ -90,30 +58,23 @@
       </h4>
       <label id="extraVolumeLocalized">Дополнительный объем по углам: </label>
       <input type="number" id="extraVolume" value="0" min="0" max="100" />%
-
       <table>
         <tr>
           <td>
             <div id="triangle">
               <h3 id="h3trLocalized">Треугольник</h3>
-              <label id="glazeVolumeLocalized">Объем угловой глазури: </label
-              ><span id="baseTrVolume"></span> ml<br />
-              <label id="dryWLocalized">Вес порошка: </label
-              ><span id="baseTrDry"></span> gr<br />
-              <label id="waterLocalized">Вес жидкости: </label
-              ><span id="baseTrWet"></span> gr<br />
+              <label id="glazeVolumeLocalized">Объем угловой глазури: </label><span id="baseTrVolume"></span> ml<br />
+              <label id="dryWLocalized">Вес порошка: </label><span id="baseTrDry"></span> gr<br />
+              <label id="waterLocalized">Вес жидкости: </label><span id="baseTrWet"></span> gr<br />
               <div id="tcont"></div>
             </div>
           </td>
           <td>
             <div id="rectangle">
               <h3 id="h3recLocalized">Прямоугольник</h3>
-              <label id="glazeVolumeLocalized2">Объем угловой глазури: </label
-              ><span id="baseRecVolume"></span> ml<br />
-              <label id="dryWLocalized2">Вес порошка: </label
-              ><span id="baseRcDry"></span> gr<br />
-              <label id="waterLocalized2">Вес жидкости: </label
-              ><span id="baseRcWet"></span> gr<br />
+              <label id="glazeVolumeLocalized2">Объем угловой глазури: </label><span id="baseRecVolume"></span> ml<br />
+              <label id="dryWLocalized2">Вес порошка: </label><span id="baseRcDry"></span> gr<br />
+              <label id="waterLocalized2">Вес жидкости: </label><span id="baseRcWet"></span> gr<br />
               <table id="rectangleTable" border="2"></table>
             </div>
           </td>
@@ -123,27 +84,20 @@
     <label id="refLocalized">Ссылки:</label>
     <ul>
       <li>
-        <a href="https://ian.currie.to/original/vol_blend.htm"
-          >Volumetric blending by Ian Currie</a
-        >
+        <a href="https://ian.currie.to/original/vol_blend.htm">Volumetric blending by Ian Currie</a>
       </li>
       <li>
-        <a
-          href="https://help.glazy.org/testing/blending-guides/#triaxial-blending-guide"
-          >Glazy.org blending guides</a
-        >
+        <a href="https://help.glazy.org/testing/blending-guides/#triaxial-blending-guide">Glazy.org blending guides</a>
       </li>
       <li><a href="https://segerlab.ru">Segerlab</a></li>
     </ul>
-
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", function() {
         calculate();
       });
-      document.addEventListener("input", function () {
+      document.addEventListener("input", function() {
         calculate();
       });
-
       function calculate() {
         const dryRo = parseFloat(document.getElementById("dryRo").value);
         const triangleDimension = parseInt(
@@ -166,7 +120,6 @@
         const triangleTable = document.createElement("div");
         triangleTable.id = "triangleTable";
         tcont.appendChild(triangleTable);
-
         for (let i = 0; i < triangleDimension; i++) {
           const row = document.createElement("div");
           row.className = "tcontainer";
@@ -184,7 +137,6 @@
           }
           triangleTable.appendChild(row);
         }
-
         const baseTrVolume = document.getElementById("baseTrVolume");
         const baseTrDry = document.getElementById("baseTrDry");
         const baseTrWet = document.getElementById("baseTrWet");
@@ -194,11 +146,10 @@
         const trDry = trVolume * ((ro - 1) / (dryRo - 1)) * dryRo;
         baseTrDry.innerText = trDry.toFixed(2);
         baseTrWet.innerText = trWet.toFixed(2);
-
+        
         // Расчет для прямоугольника
         const rectangleTable = document.getElementById("rectangleTable");
         rectangleTable.innerHTML = "";
-
         for (let i = 0; i < rectangleDimensionH; i++) {
           const row = document.createElement("tr");
           const lp = i / (rectangleDimensionH - 1);
@@ -218,7 +169,6 @@
           }
           rectangleTable.appendChild(row);
         }
-
         const baseRecVolume = document.getElementById("baseRecVolume");
         const baseRcDry = document.getElementById("baseRcDry");
         const baseRcWet = document.getElementById("baseRcWet");
@@ -233,7 +183,6 @@
         baseRcDry.innerText = rcDry.toFixed(2);
         baseRcWet.innerText = rcWet.toFixed(2);
       }
-
       const translations = {
         en: {
           languageButtonLabel: "Ru",
@@ -256,8 +205,7 @@
           waterLocalized2: "Water weight: ",
           dryWLocalized2: "Powder weight: ",
           extraVolumeLocalized: "Extra corner volume: ",
-          warningLocalized:
-            "Please note that _your_ glaze may need a different amount of water",
+          warningLocalized: "Please note that _your_ glaze may need a different amount of water",
           refLocalized: "References: ",
         },
         ru: {
@@ -281,26 +229,24 @@
           waterLocalized2: "Вес жидкости: ",
           dryWLocalized2: "Вес порошка: ",
           extraVolumeLocalized: "Дополнительный объем по углам: ",
-          warningLocalized:
-            "Учтите что _вашей_ глазури может потребоваться другое количество воды",
+          warningLocalized: "Учтите что _вашей_ глазури может потребоваться другое количество воды",
           refLocalized: "Ссылки: ",
         },
       };
-
       function updateLanguage(lang) {
         const translation = translations[lang];
         for (const key in translation) {
           document.getElementById(key).innerHTML = translation[key];
         }
       }
-
       function switchLanguage() {
         const currentLang =
-          document.getElementById("languageButtonLabel").innerHTML === "En"
-            ? "en"
-            : "ru";
+          document.getElementById("languageButtonLabel").innerHTML === "En" ?
+          "en" :
+          "ru";
         updateLanguage(currentLang === "en" ? "ru" : "en");
       }
+
     </script>
   </body>
 </html>
