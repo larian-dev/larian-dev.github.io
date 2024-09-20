@@ -25,7 +25,7 @@
   </head>
   <body>
     <button type="button" onclick="switchLanguage()">
-      <label id="languageButtonLabel">En</label>
+      <label id="languageButtonLabel">en</label>
     </button>
     <h1 id="h1localizedStr">Калькулятор объема для растяжек глазурей</h1>
     <form id="calculatorForm">
@@ -94,6 +94,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         calculate();
+        updateLanguage("en");
       });
       document.addEventListener("input", function() {
         calculate();
@@ -185,7 +186,7 @@
       }
       const translations = {
         en: {
-          languageButtonLabel: "Ru",
+          languageButtonLabel: "ru",
           h1localizedStr: "Glaze blend volume calculator",
           titleNameLocalized: "Glaze blend volume calculator",
           labelTrDimLocalized: "Triangle size:",
@@ -209,7 +210,7 @@
           refLocalized: "References: ",
         },
         ru: {
-          languageButtonLabel: "En",
+          languageButtonLabel: "en",
           h1localizedStr: "Калькулятор объема для растяжек глазурей",
           titleNameLocalized: "Калькулятор объема для растяжек глазурей",
           labelTrDimLocalized: "Размерность треугольника:",
@@ -235,16 +236,17 @@
       };
       function updateLanguage(lang) {
         const translation = translations[lang];
+        document.getElementById("languageButtonLabel").innerHTML=lang;
         for (const key in translation) {
           document.getElementById(key).innerHTML = translation[key];
         }
       }
       function switchLanguage() {
         const currentLang =
-          document.getElementById("languageButtonLabel").innerHTML === "En" ?
+          document.getElementById("languageButtonLabel").innerHTML == "en" ?
           "en" :
           "ru";
-        updateLanguage(currentLang === "en" ? "ru" : "en");
+        updateLanguage(currentLang);
       }
 
     </script>
