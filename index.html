@@ -94,7 +94,12 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         calculate();
-        updateLanguage("en");
+        if(navigator.language.includes('ru')){
+          updateLanguage("ru");
+        }
+        else{        
+          updateLanguage("en");
+        }
       });
       document.addEventListener("input", function() {
         calculate();
