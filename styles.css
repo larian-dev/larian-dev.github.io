@@ -1,0 +1,377 @@
+/* ================================================================
+   Glaze blend volume calculator
+   ================================================================ */
+
+:root {
+  color-scheme: light;
+
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --surface-2: #f7f9fb;
+  --fg: #1a222c;
+  --muted: #5d6b7a;
+  --border: #dce1e8;
+  --accent: #2f6fed;
+  --accent-hover: #2559cc;
+  --on-accent: #ffffff;
+  --ring: rgb(47 111 237 / 30%);
+  --shadow: 0 1px 2px rgb(15 23 42 / 5%), 0 10px 30px rgb(15 23 42 / 7%);
+
+  --note-bg: #fdf6e3;
+  --note-border: #ecdcae;
+  --note-fg: #6b5416;
+
+  --radius: 14px;
+  --tile-base: clamp(56px, 12vw, 64px);
+  --tile-font: clamp(0.56rem, 1.6vw, 0.68rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.page {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: clamp(18px, 3vw, 36px) clamp(14px, 3vw, 28px) 48px;
+}
+
+/* ---------------- header ---------------- */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+  letter-spacing: -0.015em;
+}
+
+.lang-toggle {
+  flex: none;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 7px 15px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------------- cards ---------------- */
+
+main {
+  display: grid;
+  gap: 18px;
+}
+
+.card {
+  padding: clamp(16px, 2.4vw, 26px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  margin: 0 0 14px;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+/* ---------------- form ---------------- */
+
+.fields {
+  display: grid;
+  gap: 10px;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  gap: 2px 16px;
+}
+
+/* A hint under a field must not size the control column, or inputs stop lining up. */
+.field-group {
+  display: grid;
+  gap: 2px;
+}
+
+.field-group .hint {
+  margin: 0;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* Every field reserves the same input + unit columns, so all inputs line up. */
+.control {
+  display: grid;
+  grid-template-columns: 7em 2.6em;
+  gap: 4px 6px;
+  align-items: center;
+}
+
+.unit {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+input[type="number"] {
+  width: 100%;
+  font: inherit;
+  padding: 8px 10px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: inherit;
+}
+
+input[type="number"]:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.primary {
+  font: inherit;
+  font-weight: 600;
+  padding: 9px 26px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.primary:hover {
+  background: var(--accent-hover);
+}
+
+.primary:active {
+  transform: translateY(1px);
+}
+
+/* ---------------- results ---------------- */
+
+.note {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--note-border);
+  border-radius: 10px;
+  background: var(--note-bg);
+  color: var(--note-fg);
+  font-size: 0.9rem;
+}
+
+.blends {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(310px, 100%), 1fr));
+  gap: 16px;
+}
+
+.blend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--surface-2);
+}
+
+.blend h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.stats {
+  margin: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.stats > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 3px 0;
+  border-bottom: 1px dotted var(--border);
+}
+
+.stats > div:last-child {
+  border-bottom: none;
+}
+
+.stats dt {
+  color: var(--muted);
+}
+
+.stats dd {
+  margin: 0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.blend-scroll {
+  overflow-x: auto;
+  padding: 2px 0 6px;
+}
+
+.blend-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: max-content;
+  margin: 0 auto;
+  font-size: var(--tile-font);
+}
+
+.trow {
+  display: flex;
+  gap: 3px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: var(--tile, var(--tile-base));
+  height: var(--tile, var(--tile-base));
+  padding: 4px 5px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  font-size: inherit;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tile .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.tile .row.center {
+  justify-content: center;
+}
+
+/* ---------------- references ---------------- */
+
+.refs {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 7px;
+}
+
+.refs a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.refs a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- misc ---------------- */
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ---------------- print ---------------- */
+
+@page {
+  margin: 12mm;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .page {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* Only the results panel reaches paper. */
+  .page-header,
+  main > :not(#results) {
+    display: none;
+  }
+
+  #results {
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .blend {
+    break-inside: avoid;
+  }
+
+  .blend-scroll {
+    overflow: visible;
+  }
+
+  /* Shrink oversized blends so the whole grid fits the sheet. */
+  .blend-grid {
+    zoom: var(--print-zoom, 1);
+  }
+
+  .tile {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
